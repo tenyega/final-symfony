@@ -38,3 +38,8 @@ services:
   #This line is to add our library Slugify to our container de service so that we can use it for our purpose like in our HelloController dump($slugify->slugify("Hello World"));
   #~ is use when we have nothing to indicate in our service
   Cocur\Slugify\Slugify: ~
+
+  # seul of detector
+  App\Taxes\Detector:
+    arguments:
+      $seuil: 100
