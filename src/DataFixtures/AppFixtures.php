@@ -40,7 +40,7 @@ class AppFixtures extends Fixture
                 ->setSlug(strtolower($this->slugger->slug($product->getName())))
                 ->setCategory($category1)
                 ->setShortDescription($faker->paragraph())
-                ->setMainPicture($faker->imageUrl(200, 200));
+                ->setMainPicture($faker->imageUrl(400, 400));
 
             $manager->persist($product);
         }
@@ -59,7 +59,7 @@ class AppFixtures extends Fixture
                 ->setSlug(strtolower($this->slugger->slug($product->getName())))
                 ->setCategory($category2)
                 ->setShortDescription($faker->paragraph())
-                ->setMainPicture($faker->imageUrl(200, 200));
+                ->setMainPicture($faker->imageUrl(400, 400));
 
 
 
@@ -79,7 +79,7 @@ class AppFixtures extends Fixture
                 ->setSlug(strtolower($this->slugger->slug($product->getName())))
                 ->setCategory($category3)
                 ->setShortDescription($faker->paragraph())
-                ->setMainPicture($faker->imageUrl(200, 200));
+                ->setMainPicture($faker->imageUrl(400, 400));
 
 
 

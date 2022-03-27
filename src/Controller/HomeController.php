@@ -13,7 +13,7 @@ class HomeController extends AbstractController
     /**
      * @Route("/",name="homepage")
      */
-    public function homepage()
+    public function homepage(ProductRepository $productRepository)
     {
         /*  $count = $productRepository->count(['price' => 1500]);
         // $count = $productRepository->count([]); count without criteria
@@ -58,6 +58,9 @@ class HomeController extends AbstractController
         $em->flush();
         */
 
-        return $this->render("home.html.twig");
+        $products = $productRepository->findBy([], [], 3);
+        return $this->render("home.html.twig", [
+            'products' => $products
+        ]);
     }
 }
