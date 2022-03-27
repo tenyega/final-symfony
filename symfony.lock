@@ -1,4 +1,7 @@
 {
+    "bluemmb/faker-picsum-photos-provider": {
+        "version": "v2.0"
+    },
     "cocur/slugify": {
         "version": "v4.1.0"
     },
@@ -100,11 +103,11 @@
     "doctrine/sql-formatter": {
         "version": "1.1.2"
     },
+    "fakerphp/faker": {
+        "version": "v1.19.0"
+    },
     "friendsofphp/proxy-manager-lts": {
         "version": "v1.0.7"
-    },
-    "fzaninotto/faker": {
-        "version": "v1.9.2"
     },
     "laminas/laminas-code": {
         "version": "3.4.1"
@@ -114,6 +117,9 @@
     },
     "laminas/laminas-zendframework-bridge": {
         "version": "1.4.1"
+    },
+    "liorchamla/faker-prices": {
+        "version": "2.0.0"
     },
     "nikic/php-parser": {
         "version": "v4.13.2"
