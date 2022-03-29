@@ -1,0 +1,22 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+	Caterogy Edit
+{% endblock %}
+
+{% block body %}
+	<h1>Modifier
+		{{ category.name}}
+	</h1>
+
+	{{form_start(formView)}}
+
+	{{form_errors(formView)}}
+	{{form_row(formView)}}
+
+	<button type="submit" class="btn primary">
+		<i class="fas fa"></i>
+		Modifier
+	</button>
+	{{form_end(formView)}}
+{% endblock %}
