@@ -79,7 +79,7 @@ class ProductController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted()) {
-
+           // dd($form->getData());
             $em->flush();
             // $response = new Response();
             // $url = $urlGenerator->generate('product_show', [

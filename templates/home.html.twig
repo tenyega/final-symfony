@@ -6,6 +6,11 @@
 {% block body %}
 
 	<h1>Nos Produits phares</h1>
+	<ol class="breadcrumb">
+
+
+		<li class="breadcrumb-item active">Accueil</li>
+	</ol>
 	<div class="row">
 		{% for p in products %}
 			<div class="col">
@@ -39,5 +44,4 @@
 		{% include "shared/_assurance.html.twig" with {"color": 'warning', "icon":' fas fa-lock', "text": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus harum totam sunt ut, asperiores ipsam."}  %}
 
 	</div>
-
 {% endblock %}
