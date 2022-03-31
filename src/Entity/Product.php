@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\ProductRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 /**
  * @ORM\Entity(repositoryClass=ProductRepository::class)
@@ -19,11 +21,14 @@ class Product
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message=" name ne doit pas etre vide")
+     * @Assert\Length(min=3,max=255, minMessage="min 3 carater")
      */
     private $name;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\NotBlank(message="price cant be blank")
      */
     private $price;
 
@@ -39,13 +44,28 @@ class Product
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Url(message="need URL valid")
+     * @Assert\NotBlank(message="mainPicture cant be blank")
      */
     private $mainPicture;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank(message=" le description ne doit pas etre vide")
+     * @Assert\Length(min=20, minMessage="min 20 caraters pour la description")
      */
     private $shortDescription;
+
+    // public static function loadValidatorMetaData(ClassMetadata $metaData)
+    // {
+
+    //     $metaData->addPropertyConstraints('name', [
+    //         new NotBlank(['message' => "Le Nom doit pas etre vide"]),
+    //         new Length(['min' => 3, 'max' => 255, 'minMessage' => 'Le nom doit etre minimum 3 caractere'])
+    //     ]);
+
+    //     $metaData->addPropertyConstraint('price', new NotBlank(['message' => "Le prix est obligatore"]));
+    // }
 
     public function getUpperName()
     {
@@ -62,7 +82,8 @@ class Product
         return $this->name;
     }
 
-    public function setName(string $name): self
+    // with this the form will bypass the navigater default validation and with this we also need required = false in our form build method
+    public function setName(?string $name): self
     {
         $this->name = $name;
 
@@ -74,7 +95,7 @@ class Product
         return $this->price;
     }
 
-    public function setPrice(int $price): self
+    public function setPrice(?int $price): self
     {
         $this->price = $price;
 
@@ -110,7 +131,7 @@ class Product
         return $this->mainPicture;
     }
 
-    public function setMainPicture(string $mainPicture): self
+    public function setMainPicture(?string $mainPicture): self
     {
         $this->mainPicture = $mainPicture;
 
@@ -122,7 +143,7 @@ class Product
         return $this->shortDescription;
     }
 
-    public function setShortDescription(string $shortDescription): self
+    public function setShortDescription(?string $shortDescription): self
     {
         $this->shortDescription = $shortDescription;
 

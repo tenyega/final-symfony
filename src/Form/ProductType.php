@@ -18,6 +18,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class ProductType extends AbstractType
 {
@@ -26,20 +27,24 @@ class ProductType extends AbstractType
         $builder
             ->add('name', TextType::class, [
                 'label' => 'Nom du Produit',
-                'attr' => ['placeholder' => 'Tapez le nom du produit']
+                'attr' => ['placeholder' => 'Tapez le nom du produit'],
+                'required' => false
             ])
             ->add('shortDescription', TextareaType::class, [
                 'label' => 'Description du produit',
-                'attr' => ['placeholder' => 'Tapez la description du produit']
+                'attr' => ['placeholder' => 'Tapez la description du produit'],
+                'required' => false
             ])
             ->add('price', PriceType::class, [
                 'label' => 'Prix de Produit',
-                'attr' => ['placeholder' => 'Tapez le prix de produit']
+                'attr' => ['placeholder' => 'Tapez le prix de produit'],
+                'required' => false
             ])
 
             ->add('mainPicture', UrlType::class, [
                 'label' => 'Url d\'image',
-                'attr' => ['placeholder' => 'Tapez url d\'image svp']
+                'attr' => ['placeholder' => 'Tapez url d\'image svp'],
+                'required' => false
             ])
             //     ;
 
@@ -57,7 +62,8 @@ class ProductType extends AbstractType
                 'class' => Category::class,
                 'choice_label' => function (Category $category) {
                     return strtoupper($category->getName());
-                }
+                },
+                'required' => false
             ]);
 
         // $builder->get('price')->addModelTransformer(new CentimesTransformer);

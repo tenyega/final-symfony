@@ -9,7 +9,7 @@
 		{{ product.name }}
 	</h1>
 
-	{{ form_start(formView)}}
+	{{ form_start(formView)  }}
 
 	{{form_errors(formView)}}
 
@@ -21,8 +21,10 @@
 
 		</div>
 		<div class="col">
-			{{ form_row(formView.mainPicture) }}
+			{{ form_row (formView.mainPicture) }}
+
 			{{ form_row (formView.shortDescription) }}
+
 			{{ form_row (formView.category) }}
 		</div>
 
