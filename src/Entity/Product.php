@@ -4,8 +4,12 @@ namespace App\Entity;
 
 use App\Repository\ProductRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Query\Expr\Func;
+use Exception;
+use Faker\Guesser\Name;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Twig\Node\CheckToStringNode;
 
 /**
  * @ORM\Entity(repositoryClass=ProductRepository::class)
@@ -66,6 +70,20 @@ class Product
 
     //     $metaData->addPropertyConstraint('price', new NotBlank(['message' => "Le prix est obligatore"]));
     // }
+
+    public $productName = '';
+    public function __construct($name)
+    {
+        echo 'inside constructor of product';
+        $this->productName = $name;
+    }
+    public function __toString()
+    {
+        echo "inside this";
+
+        return $this->productName;
+    }
+
 
     public function getUpperName()
     {
