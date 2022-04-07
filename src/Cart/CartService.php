@@ -23,12 +23,16 @@ class CartService
 
     protected function getCart()
     {
-
-        return $this->session->get('cart');
+        return $this->session->get('cart', []);
     }
     protected function saveCart(array $cart)
     {
         return $this->session->set('cart', $cart);
+    }
+
+    public function empty()
+    {
+        $this->saveCart([]);
     }
 
     public function add(int $id)
@@ -93,6 +97,7 @@ class CartService
     public function getTotal($productRepository): int
     {
 
+        dump('inside cart Sercive');
         $total = 0;
         $productRepo = $productRepository;
         foreach ($this->getCart() as $id => $quantity) {
@@ -109,7 +114,9 @@ class CartService
         }
         return $total;
     }
-
+    /**
+     * @return CartItem[]
+     */
     public function getDetailedCartItems($productRepository): array
     {
         $detailedCart = [];

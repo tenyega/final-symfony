@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ProductRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Query\Expr\Func;
 use Exception;
@@ -60,6 +62,18 @@ class Product
      */
     private $shortDescription;
 
+    /**
+     * @ORM\OneToMany(targetEntity=PurchaseItem::class, mappedBy="product")
+     */
+    private $purchaseItems;
+
+
+
+    public function __construct()
+    {
+        $this->purchaseItems = new ArrayCollection();
+    }
+
     // public static function loadValidatorMetaData(ClassMetadata $metaData)
     // {
 
@@ -71,17 +85,11 @@ class Product
     //     $metaData->addPropertyConstraint('price', new NotBlank(['message' => "Le prix est obligatore"]));
     // }
 
-    public $productName = '';
-    public function __construct($name)
-    {
-        echo 'inside constructor of product';
-        $this->productName = $name;
-    }
     public function __toString()
     {
-        echo "inside this";
 
-        return $this->productName;
+
+        return $this->name;
     }
 
 
@@ -164,6 +172,36 @@ class Product
     public function setShortDescription(?string $shortDescription): self
     {
         $this->shortDescription = $shortDescription;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, PurchaseItem>
+     */
+    public function getPurchaseItems(): Collection
+    {
+        return $this->purchaseItems;
+    }
+
+    public function addPurchaseItem(PurchaseItem $purchaseItem): self
+    {
+        if (!$this->purchaseItems->contains($purchaseItem)) {
+            $this->purchaseItems[] = $purchaseItem;
+            $purchaseItem->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removePurchaseItem(PurchaseItem $purchaseItem): self
+    {
+        if ($this->purchaseItems->removeElement($purchaseItem)) {
+            // set the owning side to null (unless already changed)
+            if ($purchaseItem->getProduct() === $this) {
+                $purchaseItem->setProduct(null);
+            }
+        }
 
         return $this;
     }
