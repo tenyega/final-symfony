@@ -7,6 +7,7 @@ use App\Entity\Purchase;
 use App\Cart\CartService;
 use App\Entity\PurchaseItem;
 use App\Form\CartConfirmationType;
+use App\Purchase\PurchasePersister;
 use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -27,13 +28,15 @@ class PurchaseConfirmationController extends AbstractController
     protected $cartService;
     protected $productRepository;
     protected $em;
+    protected $persister;
 
-    public function __construct(CartService $cartService, ProductRepository $productRepository, EntityManagerInterface $em)
+    public function __construct(CartService $cartService, ProductRepository $productRepository, EntityManagerInterface $em, PurchasePersister $persister)
     {
 
         $this->cartService = $cartService;
         $this->productRepository = $productRepository;
         $this->em = $em;
+        $this->persister = $persister;
     }
 
     /**
@@ -75,36 +78,13 @@ class PurchaseConfirmationController extends AbstractController
         /** @var Purchase */
         $purchase = $form->getData();
 
-        //6.a link with the user connected : Security 
-        $purchase->setUser($user)
-            ->setPurchasedAt(new DateTime());
 
-        //7. Link our purchase to the product inside the cart 
-
-        $total = 0;
-
-        foreach ($cartItems as $cartItem) {
-            $purchaseItem = new PurchaseItem;
-            // dd($cartItem->getTotal($this->productRepository));
-
-            $purchaseItem->setPurchase($purchase)
-                ->setProduct($cartItem['product'])
-                ->setProductName($cartItem['product']->getName())
-                ->setQuantity($cartItem['qty'])
-                ->setTotal($cartItem['product']->getPrice())
-                ->setProductPrice($cartItem['product']->getPrice());
-            $this->em->persist($purchaseItem);
-        }
-        $total += $this->cartService->getTotal($this->productRepository);
-        //8. Save the commande entityManagerInterface
-        $purchase->setTotal($total * 100);
-        $this->em->persist($purchase);
+        $this->persister->storePurchase($purchase);
 
 
-        $this->em->flush();
-        $this->cartService->empty();
-        $this->addFlash('success', "La commande a bien été enregistré");
-        return $this->redirectToRoute('purchase_index');
+        return $this->redirectToRoute('purchase_payment_form', [
+            'id' => $purchase->getId()
+        ]);
     }
 }
 

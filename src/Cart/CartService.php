@@ -97,7 +97,7 @@ class CartService
     public function getTotal($productRepository): int
     {
 
-        dump('inside cart Sercive');
+
         $total = 0;
         $productRepo = $productRepository;
         foreach ($this->getCart() as $id => $quantity) {
