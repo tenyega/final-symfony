@@ -5,11 +5,13 @@ namespace App\Controller;
 use Collator;
 use App\Entity\Product;
 use App\Entity\Category;
+use App\Event\ProductViewEvent;
 use App\Form\ProductType;
 use Doctrine\ORM\EntityManager;
 use App\Repository\ProductRepository;
 use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -30,7 +32,10 @@ use Symfony\Component\Validator\Constraints\LessThanOrEqual;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\EventDispatcher\EventDispatcher;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface as EventDispatcherEventDispatcherInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface as ContractsEventDispatcherEventDispatcherInterface;
 
 class ProductController extends AbstractController
 {
@@ -57,7 +62,7 @@ class ProductController extends AbstractController
     /**
      * @Route("/{category_slug}/{slug}", name="product_show", priority=-1)
      */
-    public function show($slug, $prenom, ProductRepository $productRepository)
+    public function show($slug, $prenom, ProductRepository $productRepository, EventDispatcherInterface $dispatcher)
     {
         $product = $productRepository->findOneBy([
             'slug' => $slug
@@ -66,6 +71,9 @@ class ProductController extends AbstractController
         if (!$product) {
             throw $this->createNotFoundException(" Product doesnt exist");
         }
+
+        $productEvent = new ProductViewEvent($product);
+        $dispatcher->dispatch($productEvent, 'product.view');
 
         return $this->render("product/show.html.twig", [
             'product' => $product

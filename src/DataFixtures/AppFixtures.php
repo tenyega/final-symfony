@@ -55,8 +55,8 @@ class AppFixtures extends Fixture
         }
 
         $category1 = new Category;
-        $category1->setName("Meuble")
-            ->setSlug("meuble");
+        $category1->setName("Meuble");
+        //->setSlug("meuble");
         $manager->persist($category1);
 
         $products = [];
@@ -65,7 +65,7 @@ class AppFixtures extends Fixture
             $product
                 ->setName($faker->sentence())
                 ->setPrice($faker->price(4000, 2000))
-                ->setSlug(strtolower($this->slugger->slug($product->getName())))
+                //  ->setSlug(strtolower($this->slugger->slug($product->getName()))) this is done with our ProductSlugListener.ph
                 ->setCategory($category1)
                 ->setShortDescription($faker->paragraph())
                 ->setMainPicture($faker->imageUrl(400, 400));
@@ -76,8 +76,8 @@ class AppFixtures extends Fixture
         }
 
         $category2 = new Category;
-        $category2->setName("Books,Automotive & jewelry")
-            ->setSlug("books-automotive-jewelry");
+        $category2->setName("Books,Automotive & jewelry");
+        //  ->setSlug("books-automotive-jewelry");
         $manager->persist($category2);
 
 
@@ -86,7 +86,7 @@ class AppFixtures extends Fixture
             $product
                 ->setName($faker->sentence())
                 ->setPrice($faker->price(4000, 2000))
-                ->setSlug(strtolower($this->slugger->slug($product->getName())))
+                //->setSlug(strtolower($this->slugger->slug($product->getName())))
                 ->setCategory($category2)
                 ->setShortDescription($faker->paragraph())
                 ->setMainPicture($faker->imageUrl(400, 400));
@@ -97,8 +97,8 @@ class AppFixtures extends Fixture
         }
 
         $category3 = new Category;
-        $category3->setName("Home & Computers")
-            ->setSlug("home-computers");
+        $category3->setName("Home & Computers");
+        //->setSlug("home-computers");
         $manager->persist($category3);
 
         for ($i = 0; $i < mt_rand(15, 20); $i++) {
@@ -106,7 +106,7 @@ class AppFixtures extends Fixture
             $product
                 ->setName($faker->sentence())
                 ->setPrice($faker->price(4000, 2000))
-                ->setSlug(strtolower($this->slugger->slug($product->getName())))
+                //->setSlug(strtolower($this->slugger->slug($product->getName())))
                 ->setCategory($category3)
                 ->setShortDescription($faker->paragraph())
                 ->setMainPicture($faker->imageUrl(400, 400));

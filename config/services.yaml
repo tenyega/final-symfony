@@ -49,6 +49,7 @@ services:
       $publicKey: "%env(STRIPE_PUBLIC_KEY)%"
       $secretKey: "%env(STRIPE_SECRET_KEY)%"
 
+  # For Listener simple
   # App\EventDispatcher\PrenomListener:
   #   tags:
   #     [
@@ -65,5 +66,30 @@ services:
   #       { name: kernel.event_listener, event: kernel.response, method: test2 },
   #     ]
 
+  #  for subscribers if we dont want the default setting
   # App\EventDispatcher\PrenomSubscriber:
   #   autoconfigure: false
+
+  # for product slug with listener
+  # App\Doctrine\Listener\ProductSlugListener:
+  #   tags: [{ name: "doctrine.event_listener", event: prePersist }]
+
+  # for product slug with entity Listener
+  App\Doctrine\Listener\ProductSlugListener:
+    tags:
+      [
+        {
+          name: "doctrine.orm.entity_listener",
+          event: prePersist,
+          entity: App\Entity\Product,
+        },
+      ]
+  App\Doctrine\Listener\CategorySlugListener:
+    tags:
+      [
+        {
+          name: "doctrine.orm.entity_listener",
+          event: prePersist,
+          entity: App\Entity\Category,
+        },
+      ]

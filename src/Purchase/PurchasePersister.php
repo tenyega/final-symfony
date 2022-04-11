@@ -32,8 +32,8 @@ class PurchasePersister
 
         $user = $this->security->getUser();
         //6.a link with the user connected : Security 
-        $purchase->setUser($user)
-            ->setPurchasedAt(new DateTime());
+        $purchase->setUser($user);
+        // ->setPurchasedAt(new DateTime()); As its always the todays date we can automatically do it with Doctrine Events inside the entity Purchase
 
         //7. Link our purchase to the product inside the cart 
 
@@ -51,7 +51,8 @@ class PurchasePersister
                 ->setProductPrice($cartItem['product']->getPrice());
             $this->em->persist($purchaseItem);
         }
-        $total += $this->cartService->getTotal($this->productRepository);
+        // $purchase->addPurchaseItem($purchaseItem); we can also do this in the place of setPurchase to get the total before flush();
+        // $total += $this->cartService->getTotal($this->productRepository); this total can be calculated with the help of our doctrine events 
         //8. Save the commande entityManagerInterface
         $purchase->setTotal($total * 100);
         $this->em->persist($purchase);
