@@ -12,7 +12,7 @@ class StripeService
 
     public function __construct(string $secretKey, string $publicKey, ProductRepository $productRepository)
     {
-        dd($publicKey, $secretKey);
+        
         $this->secretKey = $secretKey;
         $this->publicKey = $publicKey;
         $this->productRepository = $productRepository;
