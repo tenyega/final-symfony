@@ -23,7 +23,7 @@
 
 			<img src="{{ product.mainPicture }}" class="img-fluid" alt="image du produit"/>
 			<h4 class="card-title">{{ product.name }}
-				({{ product.price / 100 }}) &euro;
+				({{ product.price | amount  }})
 			</h4>
 		</div>
 		<div class"col">

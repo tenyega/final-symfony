@@ -108,7 +108,7 @@ class CartService
                 continue;
             }
 
-            $total += ($product->getPrice() / 100) * $quantity;
+            $total += ($product->getPrice()) * $quantity;
 
             // $total += $cartItem->getTotal($productRepo);
         }

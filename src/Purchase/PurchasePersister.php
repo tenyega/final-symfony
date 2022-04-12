@@ -47,7 +47,7 @@ class PurchasePersister
                 ->setProduct($cartItem['product'])
                 ->setProductName($cartItem['product']->getName())
                 ->setQuantity($cartItem['qty'])
-                ->setTotal($cartItem['product']->getPrice())
+                ->setTotal($cartItem['product']->getPrice() * $cartItem['qty'])
                 ->setProductPrice($cartItem['product']->getPrice());
             $this->em->persist($purchaseItem);
         }
