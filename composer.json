@@ -31,11 +31,7 @@
         "symfony/validator": "5.1.*",
         "symfony/yaml": "5.1.*",
         "twig/extra-bundle": "^2.12|^3.0",
-        "twig/twig": "^2.12|^3.0",
-        "fakerphp/faker": "1.13",
-        "symfony/debug-bundle": "5.1.*",
-        "symfony/stopwatch": "5.1.*",
-        "symfony/web-profiler-bundle": "5.1.*"
+        "twig/twig": "^2.12|^3.0"
     },
     "config": {
         "optimize-autoloader": true,
@@ -85,6 +81,9 @@
         }
     },
     "require-dev": {
-
+        "fakerphp/faker": "1.13",
+        "symfony/debug-bundle": "5.1.*",
+        "symfony/stopwatch": "5.1.*",
+        "symfony/web-profiler-bundle": "5.1.*"
     }
 }
